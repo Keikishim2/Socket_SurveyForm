@@ -1,0 +1,43 @@
+body{
+    background: #da9501;
+}
+button {
+    display: block;
+    font-weight: bold;
+    margin: 20px;
+}
+.container {
+    padding: 50px;
+    margin: 0 auto;
+    border-radius: 50px;
+    box-shadow:  20px 20px 60px #b97f01,
+            -20px -20px 60px #fbab01;
+    width: 500px;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+input, select, textarea {
+    border-radius: 5px;
+    padding: 5px;
+}
+label {
+    font-weight: bold;
+}
+.socket {
+    background-color: black;
+    width: 500px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+td {
+    padding: 10px;
+    vertical-align: top;
+    margin: 0 auto;
+}

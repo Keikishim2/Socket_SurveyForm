@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Survey Form</title>
+    <link rel='stylesheet' type='text/css' href='style.css'>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type='text/javascript'>
+
+    var socket = io.connect('http://localhost:8000');
+    $(document).ready(function () {
+        $('#survey_form').submit(function (e) {
+            e.preventDefault();
+            socket.emit("posting_form", {
+                name: $('#name').val(),
+                location: $('#location').val(),
+                language: $('#language').val(),
+                comment: $('#comment').val(),
+            });
+        });
+        socket.on('updated_message', function (data) {
+            $('#message').html("You emitted the following data to the server: " + JSON.stringify(data.response));
+        });
+        socket.on('random_number', function (data) {
+            $('#number').html("Your lucky number emitted by the server is: " + JSON.stringify(data.response));
+        });
+    })
+    </script>
+</head>
+<body>
+    <div class="container">
+            <h1 class="survey">Survey Sockets</h1>
+                <form id="survey_form" method="post">
+                    <table class="table1">
+                        <tr>
+                            <td><label for="name">Your Name:</label></td>
+                            <td><input id="name" type="text" name="name"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="location">Dojo Location:</label></td>
+                            <td><select id="location" name="location">
+                                    <option value="Dallas, TX">Dallas, TX</option>
+                                    <option value="Mountain View, CA">Mountian View, CA</option>
+                                    <option value="Silicon Valley">Silicon Valley</option>
+                                    <option value="Seattle WA">Seattle WA</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td><label for="language">Favorite Language:</label></td>
+                            <td><select id="language" name="language">
+                                    <option value="C">C</option>
+                                    <option value="JavaScript">JavaScript</option>
+                                    <option value="PHP">PHP</option>
+                                    <option value="Python">Python</option>
+                                    <option value="Ruby">Ruby</option>
+                                </select></td>
+                        </tr>
+                        <td><label for="comment">Comment (optional):</label></td>
+                        <td><textarea id="comment" name="comment" rows="8" cols="40"></textarea></td>
+                    </table>
+                    <button class="btn" type="submit">Submit</button>
+                </form>
+            </div>
+                <h2>Socket Info</h2>
+                <div class="socket" id="message"></div><br>
+                <div class="socket" id="number"></div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
